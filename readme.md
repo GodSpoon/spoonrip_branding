@@ -14,11 +14,11 @@ This repository contains official branding assets for spoon.rip including logos,
 
 | Color Name | Hex | RGB | HSL | Preview |
 |------------|-----|-----|-----|---------|
-| Smoky Black | `#0D0C07` | `rgba(13, 12, 7, 1)` | `hsla(50, 30%, 4%, 1)` | ![Smoky Black](https://place-hold.it/100x50/0D0C07/FAFEFF&text=Smoky Black) |
-| White | `#FAFEFF` | `rgba(250, 254, 255, 1)` | `hsla(192, 100%, 99%, 1)` | ![White](https://place-hold.it/100x50/FAFEFF/0D0C07&text=White) |
-| Battleship Gray | `#817F75` | `rgba(129, 127, 117, 1)` | `hsla(50, 5%, 48%, 1)` | ![Battleship Gray](https://place-hold.it/100x50/817F75/FAFEFF&text=Gray) |
-| Xanthous | `#F2AF29` | `rgba(242, 175, 41, 1)` | `hsla(40, 89%, 55%, 1)` | ![Xanthous](https://place-hold.it/100x50/F2AF29/0D0C07&text=Xanthous) |
-| Jasper | `#CD533B` | `rgba(205, 83, 59, 1)` | `hsla(10, 59%, 52%, 1)` | ![Jasper](https://place-hold.it/100x50/CD533B/FAFEFF&text=Jasper) |
+| Smoky Black | `#0D0C07` | `rgba(13, 12, 7, 1)` | `hsla(50, 30%, 4%, 1)` | ![Smoky Black](https://place-hold.it/100x50/0D0C07/FAFEFF?text=Smoky+Black&font=Roboto) |
+| White | `#FAFEFF` | `rgba(250, 254, 255, 1)` | `hsla(192, 100%, 99%, 1)` | ![White](https://place-hold.it/100x50/FAFEFF/0D0C07?text=White&font=Roboto) |
+| Battleship Gray | `#817F75` | `rgba(129, 127, 117, 1)` | `hsla(50, 5%, 48%, 1)` | ![Battleship Gray](https://place-hold.it/100x50/817F75/FAFEFF?text=Gray&font=Roboto) |
+| Xanthous | `#F2AF29` | `rgba(242, 175, 41, 1)` | `hsla(40, 89%, 55%, 1)` | ![Xanthous](https://place-hold.it/100x50/F2AF29/0D0C07?text=Xanthous&font=Roboto) |
+| Jasper | `#CD533B` | `rgba(205, 83, 59, 1)` | `hsla(10, 59%, 52%, 1)` | ![Jasper](https://place-hold.it/100x50/CD533B/FAFEFF?text=Jasper&font=Roboto) |
 
 ## Typography
 
@@ -26,10 +26,10 @@ The official font for spoon.rip is **Roboto** font family.
 
 | Style | Example | Usage |
 |-------|---------|-------|
-| Roboto Light | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Light&fontsize=20"> | Secondary text, captions |
-| Roboto Regular | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Regular&fontsize=20&bold"> | Body text, general content |
-| Roboto Medium | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Medium&fontsize=22&bold"> | Subheadings, emphasis |
-| Roboto Bold | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Bold&fontsize=24&bold"> | Headings, important UI elements |
+| Roboto Regular | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07?text=Roboto+Regular&font=Roboto&fontsize=24"> | Body text, general content |
+| Roboto Light | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07?text=Roboto+Light&font=Roboto&fontsize=24"> | Secondary text, captions |
+| Roboto Medium | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07?text=Roboto+Medium&font=Roboto&fontsize=24&bold"> | Subheadings, emphasis |
+| Roboto Bold | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07?text=Roboto+Bold&font=Roboto&fontsize=24&bold"> | Headings, important UI elements |
 
 ### Font Integration
 
