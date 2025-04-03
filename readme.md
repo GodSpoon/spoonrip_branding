@@ -1,77 +1,73 @@
-# spoonrip_branding
+# Spoon.rip Branding
 
-Official branding assets and guidelines for spoonrip.
+This repository contains official branding assets for spoon.rip including logos, color schemes, and typography guidelines.
 
-## Logo
+## Logos
 
-The primary logo for spoonrip:
+| Type | Preview | Source |
+|------|---------|--------|
+| Rounded Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png" width="200"> | [View](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png) |
+| Avatar | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/scoops_noarms.png" width="200"> | [View](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/scoops_noarms.png) |
+| Favicon/Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/spoon_480px.png" width="200"> | [View](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/spoon_480px.png) |
 
-![spoonrip Logo](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png)
+## Brand Colors
 
-[Download Logo](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png)
-
-## Color Palette
-
-The official brand colors are:
-
-| Color Name | Hex Code  | Preview                                       |
-| :--------- | :-------- | :-------------------------------------------- |
-| Black      | `#1b190f` | ![#1b190f](https://via.placeholder.com/20/1b190f/1b190f.png) |
-| White      | `#fafeff` | ![#fafeff](https://via.placeholder.com/20/fafeff/fafeff.png) |
-| Grey       | `#47463f` | ![#47463f](https://via.placeholder.com/20/47463f/47463f.png) |
-
-*(Note: Preview colors are generated via placeholder service)*
+| Color Name | Hex | RGB | HSL | Preview |
+|------------|-----|-----|-----|---------|
+| Smoky Black | `#0D0C07` | `rgba(13, 12, 7, 1)` | `hsla(50, 30%, 4%, 1)` | ![Smoky Black](https://place-hold.it/100x50/0D0C07/FAFEFF&text=Smoky%20Black) |
+| White | `#FAFEFF` | `rgba(250, 254, 255, 1)` | `hsla(192, 100%, 99%, 1)` | ![White](https://place-hold.it/100x50/FAFEFF/0D0C07&text=White) |
+| Battleship Gray | `#817F75` | `rgba(129, 127, 117, 1)` | `hsla(50, 5%, 48%, 1)` | ![Battleship Gray](https://place-hold.it/100x50/817F75/FAFEFF&text=Gray) |
+| Xanthous | `#F2AF29` | `rgba(242, 175, 41, 1)` | `hsla(40, 89%, 55%, 1)` | ![Xanthous](https://place-hold.it/100x50/F2AF29/0D0C07&text=Xanthous) |
+| Jasper | `#CD533B` | `rgba(205, 83, 59, 1)` | `hsla(10, 59%, 52%, 1)` | ![Jasper](https://place-hold.it/100x50/CD533B/FAFEFF&text=Jasper) |
 
 ## Typography
 
-The official font family is **Roboto** from Google Fonts.
+The official font for spoon.rip is **Roboto** font family.
 
-**Font Link:**
+| Style | Example | Usage |
+|-------|---------|-------|
+| Roboto Light | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Light&fontsize=20"> | Secondary text, captions |
+| Roboto Regular | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Regular&fontsize=20&bold"> | Body text, general content |
+| Roboto Medium | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Medium&fontsize=22&bold"> | Subheadings, emphasis |
+| Roboto Bold | <img src="https://place-hold.it/300x60/FAFEFF/0D0C07&text=Roboto%20Bold&fontsize=24&bold"> | Headings, important UI elements |
 
-* [Google Fonts - Roboto](https://fonts.google.com/specimen/Roboto)
+### Font Integration
 
-**Commonly Used Weights/Styles:**
+#### Web Integration (HTML)
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+```
 
-* Roboto Regular (400)
-* Roboto Italic (400 Italic)
-* Roboto Medium (500)
-* Roboto Bold (700)
+#### CSS Implementation
+```css
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #0D0C07;
+  background-color: #FAFEFF;
+}
 
-**Embed Code Examples:**
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
 
-1.  **HTML `<link>` Tag (include in `<head>`):**
-    *Choose the specific weights and styles you need.* For Regular 400, Medium 500, Bold 700, and Regular 400 Italic:
+.accent {
+  color: #F2AF29;
+}
 
-    ```html
-    <link rel="preconnect" href="[https://fonts.googleapis.com](https://www.google.com/search?q=https://fonts.googleapis.com)">
-    <link rel="preconnect" href="[https://fonts.gstatic.com](https://www.google.com/search?q=https://fonts.gstatic.com)" crossorigin>
-    <link href="[https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap](https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DRoboto:ital,wght%400,400%3B0,500%3B0,700%3B1,400%26display%3Dswap)" rel="stylesheet">
-    ```
+.highlight {
+  color: #CD533B;
+}
+```
 
-2.  **CSS `font-family` Rule:**
+## Usage Guidelines
 
-    ```css
-    body {
-      font-family: 'Roboto', sans-serif;
-    }
+1. Always maintain proper spacing around logos
+2. Do not alter the colors or proportions of the logos
+3. Ensure text is legible when placed on colored backgrounds
+4. When in doubt, use Smoky Black text on White background for maximum readability
 
-    /* Example for specific weights */
-    .heading {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 700; /* Bold */
-    }
+---
 
-    .sub-heading {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 500; /* Medium */
-    }
-
-    .emphasis {
-       font-family: 'Roboto', sans-serif;
-       font-style: italic; /* Italic */
-    }
-    ```
-
-## Usage
-
-Please use these assets consistently when representing the spoonrip brand. Refer to more detailed guideline documents if available.
+© Spoon.rip
