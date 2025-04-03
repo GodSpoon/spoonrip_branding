@@ -4,21 +4,21 @@ This repository contains official branding assets for spoon.rip including logos,
 
 ## Logos
 
-| Type | Preview | Source |
-|------|---------|--------|
-| Rounded Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png" width="200"> | [View](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png) |
-| Avatar | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/scoops_noarms.png" width="200"> | [View](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/scoops_noarms.png) |
-| Favicon/Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/spoon_480px.png" width="200"> | [View](https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/spoon_480px.png) |
+| Type | Preview |
+|------|---------|
+| Rounded Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png" width="100"> |
+| Avatar | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/scoops_noarms.png" width="100"> |
+| Favicon/Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/spoon_480px.png" width="100"> |
 
 ## Brand Colors
 
 | Color Name | Hex | RGB | HSL | Preview |
 |------------|-----|-----|-----|---------|
-| Smoky Black | `#0D0C07` | `rgba(13, 12, 7, 1)` | `hsla(50, 30%, 4%, 1)` | ![Smoky Black](https://place-hold.it/100x50/0D0C07/FAFEFF?text=Smoky+Black&font=Roboto&fontsize=24&bold) |
-| White | `#FAFEFF` | `rgba(250, 254, 255, 1)` | `hsla(192, 100%, 99%, 1)` | ![White](https://place-hold.it/100x50/FAFEFF/0D0C07?text=White&font=Roboto&fontsize=24&bold) |
-| Battleship Gray | `#817F75` | `rgba(129, 127, 117, 1)` | `hsla(50, 5%, 48%, 1)` | ![Battleship Gray](https://place-hold.it/100x50/817F75/FAFEFF?text=Gray&font=Roboto&fontsize=24&bold) |
-| Xanthous | `#F2AF29` | `rgba(242, 175, 41, 1)` | `hsla(40, 89%, 55%, 1)` | ![Xanthous](https://place-hold.it/100x50/F2AF29/0D0C07?text=Xanthous&font=Roboto&fontsize=24&bold) |
-| Jasper | `#CD533B` | `rgba(205, 83, 59, 1)` | `hsla(10, 59%, 52%, 1)` | ![Jasper](https://place-hold.it/100x50/CD533B/FAFEFF?text=Jasper&font=Roboto&fontsize=24&bold) |
+| Smoky Black | `#0D0C07` | `rgba(13, 12, 7, 1)` | `hsla(50, 30%, 4%, 1)` | ![Smoky Black](https://place-hold.it/150x50/0D0C07/FAFEFF?text=Smoky+Black&font=Roboto&fontsize=20&bold) |
+| White | `#FAFEFF` | `rgba(250, 254, 255, 1)` | `hsla(192, 100%, 99%, 1)` | ![White](https://place-hold.it/150x50/FAFEFF/0D0C07?text=White&font=Roboto&fontsize=20&bold) |
+| Battleship Gray | `#817F75` | `rgba(129, 127, 117, 1)` | `hsla(50, 5%, 48%, 1)` | ![Battleship Gray](https://place-hold.it/150x50/817F75/FAFEFF?text=Gray&font=Roboto&fontsize=20&bold) |
+| Xanthous | `#F2AF29` | `rgba(242, 175, 41, 1)` | `hsla(40, 89%, 55%, 1)` | ![Xanthous](https://place-hold.it/150x50/F2AF29/0D0C07?text=Xanthous&font=Roboto&fontsize=20&bold) |
+| Jasper | `#CD533B` | `rgba(205, 83, 59, 1)` | `hsla(10, 59%, 52%, 1)` | ![Jasper](https://place-hold.it/150x50/CD533B/FAFEFF?text=Jasper&font=Roboto&fontsize=20&bold) |
 
 ## Typography
 
@@ -60,13 +60,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #CD533B;
 }
 ```
-
-## Usage Guidelines
-
-1. Always maintain proper spacing around logos
-2. Do not alter the colors or proportions of the logos
-3. Ensure text is legible when placed on colored backgrounds
-4. When in doubt, use Smoky Black text on White background for maximum readability
 
 ---
 
