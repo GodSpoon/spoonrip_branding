@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Links</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; background-color: #f4f7f6; color: #333; }
+        .container { max-width: 1200px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 20px; }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            align-items: center;
+        }
+        .controls input[type="text"], .controls select {
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1em;
+            flex-grow: 1;
+        }
+        .controls select { flex-grow: 0; min-width: 150px; }
+        .image-list { list-style-type: none; padding: 0; }
+        .image-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #e0e0e0;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+            transition: box-shadow 0.2s ease;
+        }
+        .image-item:hover { box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        .image-item img {
+            width: 80px; /* Fixed width for preview */
+            height: 80px; /* Fixed height for preview */
+            object-fit: contain; /* Show entire image, scaled down */
+            margin-right: 20px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+        .image-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .image-info p {
+            font-size: 0.9em;
+            color: #555;
+            margin: 0 0 8px 0;
+            word-break: break-all;
+        }
+        .image-info .file-path { font-weight: bold; color: #333; }
+        .image-item button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+        .image-item button:hover { background-color: #0056b3; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #007bff; text-decoration: none; font-size: 1em; padding: 8px 12px; background-color: #e9ecef; border-radius: 6px; }
+        .back-link:hover { text-decoration: underline; background-color: #dde6ed; }
+        .message { position: fixed; bottom: 20px; right: 20px; background-color: #28a745; color: white; padding: 12px 18px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none; z-index: 1000; font-size: 1em; }
+        .no-results { text-align: center; padding: 20px; color: #777; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="./index.html" class="back-link">&larr; Back to Hub</a>
+        <h1>Image Links</h1>
+
+        <div class="controls">
+            <input type="text" id="search-bar" placeholder="Search by filename...">
+            <select id="folder-filter">
+                <option value="all">All Folders</option>
+                <!-- Options will be populated by JavaScript -->
+            </select>
+        </div>
+
+        <ul id="image-list" class="image-list">
+            <!-- Images will be loaded here by JavaScript -->
+        </ul>
+        <p id="no-results-message" class="no-results" style="display: none;">No images found matching your criteria.</p>
+    </div>
+    <div id="copy-message" class="message">Link copied to clipboard!</div>
+
+    <script>
+        const imageFiles = [
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/src/smudge.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_blk.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_white.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_silver.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_night.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_eerieblack.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_giantsorange.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/d20.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/rclone_spoon.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/itc-in/ITC Black.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/fcd215-Tanzanian_Gold.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/d20_wht_280x280.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/735848-Heavy_Siena.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/rclone.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/itc-in/ITC Logo v2-whitebg.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/bfb065-Riesling_Grape.svg",
+            "/home/sam/SPOON_GIT/spoonrip_branding/itc-in/ITC Logo tp.png",
+            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/a1d5f1-Juzcar_Blue.svg"
+            // Add more image paths here, excluding .xcf
+        ];
+
+        const imageList = document.getElementById('image-list');
+        const copyMessage = document.getElementById('copy-message');
+        const searchBar = document.getElementById('search-bar');
+        const folderFilter = document.getElementById('folder-filter');
+        const noResultsMessage = document.getElementById('no-results-message');
+        const workspaceRoot = '/home/sam/SPOON_GIT/spoonrip_branding'; // Define workspace root
+
+        // Function to extract top-level folder
+        function getTopLevelFolder(filePath) {
+            const relativePath = filePath.replace(workspaceRoot + '/', '');
+            const parts = relativePath.split('/');
+            return parts.length > 1 ? parts[0] : 'root'; // 'root' for files directly in workspaceRoot
+        }
+
+        // Populate folder filter options
+        const folders = new Set();
+        imageFiles.forEach(filePath => {
+            folders.add(getTopLevelFolder(filePath));
+        });
+        folders.forEach(folder => {
+            const option = document.createElement('option');
+            option.value = folder;
+            option.textContent = folder.charAt(0).toUpperCase() + folder.slice(1);
+            folderFilter.appendChild(option);
+        });
+
+        // Function to generate the raw.githack.com URL
+        function getGithackUrl(filePath) {
+            const baseRepoUrl = 'https://raw.githack.com/GodSpoon/spoonrip_branding/master';
+            const repoRelativePath = filePath.replace(workspaceRoot, '');
+            return `${baseRepoUrl}${repoRelativePath}`;
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                copyMessage.textContent = 'Link copied to clipboard!';
+                copyMessage.style.backgroundColor = '#28a745';
+                copyMessage.style.display = 'block';
+                setTimeout(() => {
+                    copyMessage.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                copyMessage.textContent = 'Failed to copy link!';
+                copyMessage.style.backgroundColor = '#dc3545';
+                copyMessage.style.display = 'block';
+                setTimeout(() => {
+                    copyMessage.style.display = 'none';
+                }, 2000);
+            });
+        }
+
+        // Function to render images
+        function renderImages(filteredFiles) {
+            imageList.innerHTML = ''; // Clear existing list
+            if (filteredFiles.length === 0) {
+                noResultsMessage.style.display = 'block';
+                return;
+            }
+            noResultsMessage.style.display = 'none';
+
+            filteredFiles.forEach(filePath => {
+                const item = document.createElement('li');
+                item.className = 'image-item';
+
+                const img = document.createElement('img');
+                const relativePath = filePath.replace(workspaceRoot + '/', './');
+                img.src = relativePath;
+                const fileName = filePath.split('/').pop();
+                img.alt = fileName;
+
+                const imageInfo = document.createElement('div');
+                imageInfo.className = 'image-info';
+
+                const pathPara = document.createElement('p');
+                pathPara.className = 'file-path';
+                pathPara.textContent = filePath.replace(workspaceRoot + '/', '');
+
+                const githackUrl = getGithackUrl(filePath);
+                const urlPara = document.createElement('p');
+                urlPara.textContent = `Githack: ${githackUrl}`;
+
+                const button = document.createElement('button');
+                button.textContent = 'Copy Githack URL';
+                button.onclick = () => copyToClipboard(githackUrl);
+
+                imageInfo.appendChild(pathPara);
+                imageInfo.appendChild(urlPara);
+
+                item.appendChild(img);
+                item.appendChild(imageInfo);
+                item.appendChild(button);
+                imageList.appendChild(item);
+            });
+        }
+
+        // Filter and Search logic
+        function filterAndSearch() {
+            const searchTerm = searchBar.value.toLowerCase();
+            const selectedFolder = folderFilter.value;
+
+            const filteredFiles = imageFiles.filter(filePath => {
+                const fileName = filePath.split('/').pop().toLowerCase();
+                const topLevelFolder = getTopLevelFolder(filePath);
+
+                const matchesSearch = fileName.includes(searchTerm);
+                const matchesFolder = (selectedFolder === 'all' || topLevelFolder === selectedFolder);
+
+                return matchesSearch && matchesFolder;
+            });
+            renderImages(filteredFiles);
+        }
+
+        searchBar.addEventListener('input', filterAndSearch);
+        folderFilter.addEventListener('change', filterAndSearch);
+
+        // Initial render
+        if (imageFiles.length === 0) {
+            noResultsMessage.textContent = 'No images found in the workspace (svg, png, jpg, jpeg, webp).';
+            noResultsMessage.style.display = 'block';
+        } else {
+            renderImages(imageFiles);
+        }
+    </script>
+</body>
+</html>

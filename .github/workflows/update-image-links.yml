@@ -1,0 +1,71 @@
+name: Update Githack URLs
+
+on:
+  push:
+    branches:
+      - master # Or your default branch
+    paths:
+      - '**/image-links.html'
+      - 'icons/**'
+      - 'itc-in/**'
+      - 'smudge-colors/**'
+      - 'spoon.rip/**'
+
+jobs:
+  update-urls:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }} # A personal access token with repo scope
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Update image links
+        run: |
+          IMAGE_FILES_HTML_PATH="image-links.html"
+          WORKSPACE_ROOT="${GITHUB_WORKSPACE}"
+
+          # Find all image files (excluding xcf and files in .git or .github)
+          # Output absolute paths for consistency with how they might be initially in the HTML
+          find "${WORKSPACE_ROOT}" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.svg" -o -iname "*.bmp" \) ! -path "*/.git/*" ! -path "*/.github/*" ! -iname "*.xcf" > all_images.txt
+
+          # Prepare the new array content for JavaScript
+          js_array_content=""
+          while IFS= read -r img_file; do
+            # Make path relative to GITHUB_WORKSPACE for the JS array
+            # The script in image-links.html expects paths relative to the workspace root
+            js_array_content+="            \"${img_file}\",\n"
+          done < all_images.txt
+
+          # Remove trailing comma and newline if array is not empty
+          if [ -n "$js_array_content" ]; then
+            js_array_content=$(echo -e "${js_array_content%,\n}")
+          fi
+
+          # Escape for sed: backslashes, forward slashes, ampersands
+          escaped_js_array_content=$(echo "$js_array_content" | sed -e 's/[\\/&]/\\&/g')
+
+          # Replace the imageFiles array in image-links.html
+          # This sed command looks for the imageFiles array and replaces its content.
+          # It handles multi-line replacement using a label and branch in sed.
+          sed -i ":a;N;$!ba;s/const imageFiles = \[[^]]*\];/const imageFiles = [\n${escaped_js_array_content}\n        ];/" "${IMAGE_FILES_HTML_PATH}"
+
+          echo "Updated image list in ${IMAGE_FILES_HTML_PATH}"
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add image-links.html
+          # Commit only if there are changes
+          if ! git diff --staged --quiet; then
+            git commit -m "docs: Update image links in image-links.html"
+            git push
+          else
+            echo "No changes to commit for image-links.html"
+          fi
