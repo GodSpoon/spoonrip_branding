@@ -97,27 +97,56 @@
 
     <script>
         const imageFiles = [
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/src/smudge.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_blk.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_white.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_silver.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_night.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_eerieblack.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/smudge_reference/smudge_giantsorange.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/d20.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/rclone_spoon.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/itc-in/ITC Black.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/fcd215-Tanzanian_Gold.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/d20_wht_280x280.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/735848-Heavy_Siena.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/icons/custom/rclone.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/itc-in/ITC Logo v2-whitebg.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/bfb065-Riesling_Grape.svg",
-            "/home/sam/SPOON_GIT/spoonrip_branding/itc-in/ITC Logo tp.png",
-            "/home/sam/SPOON_GIT/spoonrip_branding/smudge-colors/colors/a1d5f1-Juzcar_Blue.svg"
-            // Add more image paths here, excluding .xcf
+            "spoon.rip/author.jpg",
+            "spoon.rip/scoops_whitebg.png",
+            "spoon.rip/ventoy-haike.png",
+            "spoon.rip/scoops_noarms_whitebg.png",
+            "spoon.rip/scoops_noarms.png",
+            "spoon.rip/logos/spoonrip.png",
+            "spoon.rip/logos/0-0.png",
+            "spoon.rip/logos/stupidtigers-avatar.png",
+            "spoon.rip/logos/spoonrip.jpg",
+            "spoon.rip/logos/STEEPLE-spoonrip.png",
+            "spoon.rip/logos/pfp.png",
+            "spoon.rip/logos/logoonly-spoonrip.png",
+            "spoon.rip/logos/spoonrip-avatar.jpg",
+            "spoon.rip/logos/font.png",
+            "spoon.rip/yllw-bg-haikei.svg",
+            "spoon.rip/spoonrip_splash.bmp",
+            "spoon.rip/scoops_transparent.png",
+            "spoon.rip/spoonrip_splash-800x450.bmp",
+            "spoon.rip/yllw-bg-haikei.png",
+            "spoon.rip/spoon_480px.png",
+            "spoon.rip/scoops_noarmsflipped.png",
+            "spoon.rip/scoops_kernelsplash.bmp",
+            "spoon.rip/scoops_kernelsplash-800x480.bmp",
+            "spoon.rip/spoondotrip.svg",
+            "spoon.rip/wallpapers/dante.png",
+            "spoon.rip/wallpapers/dante_blurred.png",
+            "icons/custom/d20.png",
+            "icons/custom/rclone_spoon.png",
+            "icons/custom/d20_wht_280x280.png",
+            "icons/custom/rclone.png",
+            "itc-in/ITC Logo.PNG",
+            "itc-in/ITC Logo v2.PNG",
+            "itc-in/ITC Logo v2-tp.PNG",
+            "itc-in/ITC Logo v2-whitebg.png",
+            "itc-in/ITC Logo tp.png",
+            "itc-in/ITC Black.svg",
+            "smudge-colors/src/smudge.svg",
+            "smudge-colors/smudge_reference/smudge_blk.png",
+            "smudge-colors/smudge_reference/smudge_white.svg",
+            "smudge-colors/smudge_reference/smudge.svg",
+            "smudge-colors/smudge_reference/smudge_silver.svg",
+            "smudge-colors/smudge_reference/smudge_night.svg",
+            "smudge-colors/smudge_reference/smudge_eerieblack.svg",
+            "smudge-colors/smudge_reference/smudge.png",
+            "smudge-colors/smudge_reference/smudge_giantsorange.svg",
+            "smudge-colors/colors/fcd215-Tanzanian_Gold.svg",
+            "smudge-colors/colors/735848-Heavy_Siena.svg",
+            "smudge-colors/colors/bfb065-Riesling_Grape.svg",
+            "smudge-colors/colors/a1d5f1-Juzcar_Blue.svg"
+            // GitHub Action will update this list automatically
         ];
 
         const imageList = document.getElementById('image-list');
@@ -125,12 +154,12 @@
         const searchBar = document.getElementById('search-bar');
         const folderFilter = document.getElementById('folder-filter');
         const noResultsMessage = document.getElementById('no-results-message');
-        const workspaceRoot = '/home/sam/SPOON_GIT/spoonrip_branding'; // Define workspace root
+        // const workspaceRoot = '/home/sam/SPOON_GIT/spoonrip_branding'; // No longer needed for client-side path manipulation
 
         // Function to extract top-level folder
         function getTopLevelFolder(filePath) {
-            const relativePath = filePath.replace(workspaceRoot + '/', '');
-            const parts = relativePath.split('/');
+            // filePath is now relative to workspace root
+            const parts = filePath.split('/');
             return parts.length > 1 ? parts[0] : 'root'; // 'root' for files directly in workspaceRoot
         }
 
@@ -148,9 +177,9 @@
 
         // Function to generate the raw.githack.com URL
         function getGithackUrl(filePath) {
+            // filePath is now relative to workspace root
             const baseRepoUrl = 'https://raw.githack.com/GodSpoon/spoonrip_branding/master';
-            const repoRelativePath = filePath.replace(workspaceRoot, '');
-            return `${baseRepoUrl}${repoRelativePath}`;
+            return `${baseRepoUrl}/${filePath}`;
         }
 
         // Function to copy text to clipboard
@@ -187,8 +216,8 @@
                 item.className = 'image-item';
 
                 const img = document.createElement('img');
-                const relativePath = filePath.replace(workspaceRoot + '/', './');
-                img.src = relativePath;
+                // filePath is now relative to workspace root, so can be used directly for src
+                img.src = './' + filePath; // Prepend './' for local relative pathing
                 const fileName = filePath.split('/').pop();
                 img.alt = fileName;
 
@@ -197,7 +226,7 @@
 
                 const pathPara = document.createElement('p');
                 pathPara.className = 'file-path';
-                pathPara.textContent = filePath.replace(workspaceRoot + '/', '');
+                pathPara.textContent = filePath; // Display the relative path directly
 
                 const githackUrl = getGithackUrl(filePath);
                 const urlPara = document.createElement('p');

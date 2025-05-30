@@ -32,14 +32,14 @@ jobs:
 
           # Find all image files (excluding xcf and files in .git or .github)
           # Output absolute paths for consistency with how they might be initially in the HTML
-          find "${WORKSPACE_ROOT}" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.svg" -o -iname "*.bmp" \) ! -path "*/.git/*" ! -path "*/.github/*" ! -iname "*.xcf" > all_images.txt
+          find "${WORKSPACE_ROOT}" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.svg" -o -iname "*.bmp" -o -iname "*.webp" \) ! -path "*/.git/*" ! -path "*/.github/*" ! -iname "*.xcf" > all_images.txt
 
           # Prepare the new array content for JavaScript
           js_array_content=""
           while IFS= read -r img_file; do
             # Make path relative to GITHUB_WORKSPACE for the JS array
-            # The script in image-links.html expects paths relative to the workspace root
-            js_array_content+="            \"${img_file}\",\n"
+            repo_relative_path="${img_file#${WORKSPACE_ROOT}/}"
+            js_array_content+="            \\"${repo_relative_path}\\",\\n"
           done < all_images.txt
 
           # Remove trailing comma and newline if array is not empty

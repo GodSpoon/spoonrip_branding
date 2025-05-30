@@ -6,9 +6,9 @@ This repository contains official branding assets for spoon.rip including logos,
 
 | Type | Preview |
 |------|---------|
-| Rounded Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/logos/spoonrip.png" width="100"> |
-| Avatar | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/scoops_noarms.png" width="100"> |
-| Favicon/Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoonrip_branding/spoon_480px.png" width="100"> |
+| Rounded Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoon.rip/logos/spoonrip.png" width="100"> |
+| Avatar | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoon.rip/scoops_noarms.png" width="100"> |
+| Favicon/Logo | <img src="https://raw.githubusercontent.com/GodSpoon/spoonrip_branding/refs/heads/master/spoon.rip/spoon_480px.png" width="100"> |
 
 ## Brand Colors
 
