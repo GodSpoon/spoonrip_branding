@@ -45,28 +45,60 @@ jobs:
             echo "INFO: Large number of image files found ($file_count) - processing efficiently..."
           fi
 
-          # Prepare the new array content for JavaScript
-          js_array_content=""
-          while IFS= read -r img_file; do
-            # Make path relative to GITHUB_WORKSPACE for the JS array
-            repo_relative_path="${img_file#${WORKSPACE_ROOT}/}"
-            js_array_content+="            \\"${repo_relative_path}\\",\\n"
-          done < all_images.txt
+          # Use awk to process file paths and generate JavaScript array efficiently
+          # This avoids all argument list limitations by processing one line at a time
+          awk -v workspace_root="${WORKSPACE_ROOT}/" '
+          BEGIN {
+            print "        const imageFiles = ["
+          }
+          {
+            # Store all lines for processing
+            lines[NR] = $0
+          }
+          END {
+            # Process all stored lines
+            for (i = 1; i <= NR; i++) {
+              # Check if the line starts with workspace_root
+              if (index(lines[i], workspace_root) == 1) {
+                # Remove workspace root from path to make it relative
+                relative_path = substr(lines[i], length(workspace_root) + 1)
+              } else {
+                # If not absolute path, use as-is
+                relative_path = lines[i]
+              }
+              # Escape quotes in the path
+              gsub(/"/, "\\\"", relative_path)
+              # Print the array entry, add comma only if not the last line
+              if (i < NR) {
+                print "            \"" relative_path "\","
+              } else {
+                print "            \"" relative_path "\""
+              }
+            }
+            # Close the array with proper formatting
+            print "        ];"
+          }
+          ' all_images.txt > temp_imagefiles.js
 
-          # Remove trailing comma and newline if array is not empty
-          if [ -n "$js_array_content" ]; then
-            js_array_content=$(echo -e "${js_array_content%,\n}")
-          fi
+          # Create a new version of the HTML file with the updated array
+          # Use awk for more reliable processing of large files
+          
+          # Extract everything before the imageFiles array
+          awk '/const imageFiles = \[/{exit} {print}' "${IMAGE_FILES_HTML_PATH}" > temp_html_before.txt
+          
+          # Extract everything after the imageFiles array (skip the array entirely)
+          awk '/^        \];/{found=1} found{print}' "${IMAGE_FILES_HTML_PATH}" > temp_html_after.txt
+          
+          # Combine the parts
+          cat temp_html_before.txt temp_imagefiles.js temp_html_after.txt > "${IMAGE_FILES_HTML_PATH}.new"
+          
+          # Replace the original file
+          mv "${IMAGE_FILES_HTML_PATH}.new" "${IMAGE_FILES_HTML_PATH}"
+          
+          # Clean up temporary files
+          rm -f temp_imagefiles.js temp_html_before.txt temp_html_after.txt all_images.txt
 
-          # Escape for sed: backslashes, forward slashes, ampersands
-          escaped_js_array_content=$(echo "$js_array_content" | sed -e 's/[\\/&]/\\&/g')
-
-          # Replace the imageFiles array in image-links.html
-          # This sed command looks for the imageFiles array and replaces its content.
-          # It handles multi-line replacement using a label and branch in sed.
-          sed -i ":a;N;$!ba;s/const imageFiles = \[[^]]*\];/const imageFiles = [\n${escaped_js_array_content}\n        ];/" "${IMAGE_FILES_HTML_PATH}"
-
-          echo "Updated image list in ${IMAGE_FILES_HTML_PATH}"
+          echo "Updated image list in ${IMAGE_FILES_HTML_PATH} with $file_count files"
 
       - name: Commit and push changes
         run: |
