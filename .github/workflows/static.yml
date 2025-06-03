@@ -40,12 +40,19 @@ jobs:
         run: |
           # Create a temporary directory for deployment
           mkdir -p _site
-          # Copy the smudge-colors directory to the deployment folder using rsync for better handling of large file counts
-          rsync -av smudge-colors/ _site/
-          # Ensure any assets or resources needed are also copied
-          if [ -d "assets" ]; then
-            rsync -av assets/ _site/assets/
+          # Copy only essential files, not the massive colors directory
+          cp smudge-colors/index.html _site/
+          cp smudge-colors/README.md _site/
+          # Copy src directory for any essential assets
+          if [ -d "smudge-colors/src" ]; then
+            cp -r smudge-colors/src _site/
           fi
+          # Copy smudge_reference if needed
+          if [ -d "smudge-colors/smudge_reference" ]; then
+            cp -r smudge-colors/smudge_reference _site/
+          fi
+          # Note: colors directory (953MB, 30k+ files) excluded from GitHub Pages
+          # Consider hosting colors separately or using external CDN
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

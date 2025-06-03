@@ -1,0 +1,33 @@
+name: Deploy Colors to External Storage
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - 'smudge-colors/colors/**'
+  workflow_dispatch:
+
+jobs:
+  deploy-colors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Compress colors directory
+        run: |
+          cd smudge-colors
+          tar -czf colors.tar.gz colors/
+          echo "Compressed $(ls -lh colors.tar.gz)"
+      
+      # This step would need configuration based on your preferred hosting
+      # Options: AWS S3, GitHub Releases, or other CDN
+      - name: Upload to releases (example)
+        uses: softprops/action-gh-release@v1
+        if: github.ref == 'refs/heads/master'
+        with:
+          tag_name: colors-$(date +%Y%m%d-%H%M%S)
+          files: smudge-colors/colors.tar.gz
+          body: "Automated upload of color SVG files"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

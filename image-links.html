@@ -202,16 +202,37 @@
             });
         }
 
-        // Function to render images
+        // Pagination and performance variables
+        let currentPage = 1;
+        const itemsPerPage = 50; // Show 50 items per page for performance
+        let allFilteredFiles = [];
+
+        // Function to render images with pagination
         function renderImages(filteredFiles) {
+            allFilteredFiles = filteredFiles;
+            const totalPages = Math.ceil(filteredFiles.length / itemsPerPage);
+            
+            // Update pagination info
+            updatePaginationInfo(filteredFiles.length, totalPages);
+            
+            // Render current page
+            renderCurrentPage();
+        }
+
+        function renderCurrentPage() {
             imageList.innerHTML = ''; // Clear existing list
-            if (filteredFiles.length === 0) {
+            
+            if (allFilteredFiles.length === 0) {
                 noResultsMessage.style.display = 'block';
                 return;
             }
             noResultsMessage.style.display = 'none';
 
-            filteredFiles.forEach(filePath => {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, allFilteredFiles.length);
+            const currentPageFiles = allFilteredFiles.slice(startIndex, endIndex);
+
+            currentPageFiles.forEach(filePath => {
                 const item = document.createElement('li');
                 item.className = 'image-item';
 
@@ -220,6 +241,9 @@
                 img.src = './' + filePath; // Prepend './' for local relative pathing
                 const fileName = filePath.split('/').pop();
                 img.alt = fileName;
+                
+                // Lazy loading for better performance
+                img.loading = 'lazy';
 
                 const imageInfo = document.createElement('div');
                 imageInfo.className = 'image-info';
@@ -246,6 +270,38 @@
             });
         }
 
+        function updatePaginationInfo(totalItems, totalPages) {
+            let paginationInfo = document.getElementById('pagination-info');
+            if (!paginationInfo) {
+                paginationInfo = document.createElement('div');
+                paginationInfo.id = 'pagination-info';
+                paginationInfo.style.cssText = 'text-align: center; margin: 20px 0; font-weight: bold;';
+                imageList.parentNode.insertBefore(paginationInfo, imageList);
+            }
+            
+            paginationInfo.innerHTML = `
+                <p>Showing ${totalItems} items across ${totalPages} pages (Page ${currentPage} of ${totalPages})</p>
+                <div style="margin: 10px 0;">
+                    <button onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>First</button>
+                    <button onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Previous</button>
+                    <span style="margin: 0 15px;">Page ${currentPage} of ${totalPages}</span>
+                    <button onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>
+                    <button onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last</button>
+                </div>
+            `;
+        }
+
+        function goToPage(page) {
+            const totalPages = Math.ceil(allFilteredFiles.length / itemsPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderCurrentPage();
+                updatePaginationInfo(allFilteredFiles.length, totalPages);
+                // Scroll to top of results
+                document.getElementById('image-list').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // Filter and Search logic
         function filterAndSearch() {
             const searchTerm = searchBar.value.toLowerCase();
@@ -260,6 +316,9 @@
 
                 return matchesSearch && matchesFolder;
             });
+            
+            // Reset to first page when filtering
+            currentPage = 1;
             renderImages(filteredFiles);
         }
 
