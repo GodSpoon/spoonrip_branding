@@ -5,10 +5,12 @@ on:
     branches:
       - master # Or your default branch
     paths:
-      - '**/image-links.html'
+      - 'index.html'
+      - 'image-links.html'
       - 'itc-in/**'
       - 'smudge-colors/colors/**'  # Include the colors directory
       - 'spoon.rip/**'
+      - 'icons/**'
 
 jobs:
   update-urls:
@@ -31,9 +33,9 @@ jobs:
           IMAGE_FILES_HTML_PATH="image-links.html"
           WORKSPACE_ROOT="${GITHUB_WORKSPACE}"
 
-          # Find image files in specific directories: smudge-colors/colors, spoon.rip, itc-in
+          # Find image files in specific directories: smudge-colors/colors, spoon.rip, itc-in, icons
           # Include the colors directory but exclude xcf files for efficiency
-          find "${WORKSPACE_ROOT}/smudge-colors/colors" "${WORKSPACE_ROOT}/spoon.rip" "${WORKSPACE_ROOT}/itc-in" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.svg" -o -iname "*.bmp" -o -iname "*.webp" \) ! -iname "*.xcf" 2>/dev/null > all_images.txt
+          find "${WORKSPACE_ROOT}/smudge-colors/colors" "${WORKSPACE_ROOT}/spoon.rip" "${WORKSPACE_ROOT}/itc-in" "${WORKSPACE_ROOT}/icons" -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.svg" -o -iname "*.bmp" -o -iname "*.webp" \) ! -iname "*.xcf" 2>/dev/null > all_images.txt
 
           # Check file count and warn if very large (but allow processing)
           file_count=$(wc -l < all_images.txt)

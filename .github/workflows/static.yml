@@ -1,10 +1,19 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Simple workflow for deploying SpoonRIP Branding Hub to GitHub Pages
+name: Deploy SpoonRIP Branding Hub to Pages
 
 on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["master"]
+    paths:
+      - 'index.html'
+      - 'image-links.html'
+      - 'smudge-colors/index.html'
+      - 'smudge-colors/smudge_reference/**'
+      - 'icons/**'
+      - 'itc-in/**'
+      - 'spoon.rip/**'
+      - '.github/workflows/static.yml'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -35,24 +44,54 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       
-      # Copy smudge-colors/index.html to the root for GitHub Pages
-      - name: Make smudge-colors the main site
+      # Create deployment structure with main index.html as landing page
+      - name: Prepare site structure
         run: |
           # Create a temporary directory for deployment
           mkdir -p _site
-          # Copy only essential files, not the massive colors directory
-          cp smudge-colors/index.html _site/
-          cp smudge-colors/README.md _site/
-          # Copy src directory for any essential assets
-          if [ -d "smudge-colors/src" ]; then
-            cp -r smudge-colors/src _site/
-          fi
-          # Copy smudge_reference if needed
+          
+          # Copy main index.html as the landing page
+          cp index.html _site/
+          
+          # Copy image-links.html as a subpage
+          cp image-links.html _site/
+          
+          # Copy smudge-colors/index.html as smudge.html subpage
+          cp smudge-colors/index.html _site/smudge.html
+          
+          # Copy essential assets for smudge.html to work
           if [ -d "smudge-colors/smudge_reference" ]; then
             cp -r smudge-colors/smudge_reference _site/
           fi
+          
+          # Copy any other essential directories
+          if [ -d "icons" ]; then
+            cp -r icons _site/
+          fi
+          
+          if [ -d "itc-in" ]; then
+            cp -r itc-in _site/
+          fi
+          
+          if [ -d "spoon.rip" ]; then
+            cp -r spoon.rip _site/
+          fi
+          
+          # Copy README files for reference
+          if [ -f "readme.md" ]; then
+            cp readme.md _site/
+          fi
+          if [ -f "smudge-colors/README.md" ]; then
+            cp smudge-colors/README.md _site/smudge-README.md
+          fi
+          
+          echo "Site structure prepared:"
+          echo "- Main landing page: index.html (SpoonRIP Branding Hub)"
+          echo "- Subpage 1: image-links.html"
+          echo "- Subpage 2: smudge.html (ColorCat tool)"
+          
           # Note: colors directory (953MB, 30k+ files) excluded from GitHub Pages
-          # Consider hosting colors separately or using external CDN
+          # The smudge.html page will fetch SVGs from the raw GitHub repository
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
