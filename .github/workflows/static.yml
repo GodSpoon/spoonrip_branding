@@ -40,11 +40,11 @@ jobs:
         run: |
           # Create a temporary directory for deployment
           mkdir -p _site
-          # Copy the smudge-colors directory to the deployment folder
-          cp -r smudge-colors/* _site/
+          # Copy the smudge-colors directory to the deployment folder using rsync for better handling of large file counts
+          rsync -av smudge-colors/ _site/
           # Ensure any assets or resources needed are also copied
           if [ -d "assets" ]; then
-            cp -r assets _site/
+            rsync -av assets/ _site/assets/
           fi
       
       - name: Upload artifact
