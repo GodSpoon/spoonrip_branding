@@ -1,6 +1,6 @@
 # Smudge Colors SVG Generator
 
-This project generates a series of SVG files, each representing a color from a predefined list. The SVGs are based on a template (`src/smudge.svg`) where the background color is dynamically replaced.
+This dumb project generates a series of SVG files, each representing a color from a predefined list. The SVGs are based on a template (`src/smudge.svg`) where the background color is dynamically replaced.
 
 ## How to Use
 
@@ -68,11 +68,11 @@ Assuming your Markdown file is in the `smudge-colors` directory or a parent dire
 
 3.  **Creating a Color Palette Table**:
 
-    | Name         | Hex     | Preview                                       |
-    |--------------|---------|-----------------------------------------------|
-    | Alice Blue   | #F0F8FF | ![F0F8FF-AliceBlue.svg](./colors/F0F8FF-AliceBlue.svg) |
-    | Red          | #FF0000 | ![FF0000-Red.svg](./colors/FF0000-Red.svg)       |
-    | Forest Green | #228B22 | ![228B22-ForestGreen.svg](./colors/228B22-ForestGreen.svg) |
+    | Name           | Hex     | Preview                                                      |
+    |----------------|---------|--------------------------------------------------------------|
+    | Black          | #F0F8FF | ![F0F8FF-AliceBlue.svg](./colors/000000-Black.svg)           |
+    | Tropical Waters| #FF0000 | ![FF0000-Red.svg](./colors/007c7e-Tropical_Waters.svg)       |
+    | Charmed Green  | #228B22 | ![228B22-ForestGreen.svg](./colors/007f3a-Charmed_Green.svg) |
 
 **Important Considerations for Paths:**
 
