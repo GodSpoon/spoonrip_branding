@@ -1,0 +1,84 @@
+name: Resize App Images
+
+on:
+  push:
+    paths:
+      - 'apps/**'
+    branches:
+      - master
+      - main
+
+jobs:
+  resize-images:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+      
+      - name: Resize images
+        run: |
+          #!/bin/bash
+          
+          SIZES=(25 50 100 250 500)
+          CHANGES=0
+          
+          # Find all image files in apps directory
+          find apps -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" \) | while read -r img; do
+            # Get image dimensions
+            dimensions=$(identify -format "%w %h" "$img" 2>/dev/null)
+            if [ -z "$dimensions" ]; then
+              echo "⚠️  Skipping invalid image: $img"
+              continue
+            fi
+            
+            width=$(echo $dimensions | cut -d' ' -f1)
+            height=$(echo $dimensions | cut -d' ' -f2)
+            
+            # Only process square images
+            if [ "$width" != "$height" ]; then
+              echo "⏭️  Skipping non-square image: $img (${width}x${height})"
+              continue
+            fi
+            
+            # Get file info
+            dir=$(dirname "$img")
+            filename=$(basename "$img")
+            name="${filename%.*}"
+            ext="${filename##*.}"
+            
+            # Create resized versions
+            for size in "${SIZES[@]}"; do
+              output="${dir}/${name}_${size}x${size}.${ext}"
+              
+              # Skip if already exists
+              if [ -f "$output" ]; then
+                continue
+              fi
+              
+              # Only resize if original is larger than target size
+              if [ "$width" -ge "$size" ]; then
+                echo "✨ Creating ${size}x${size} version of $img"
+                convert "$img" -resize "${size}x${size}" "$output"
+                CHANGES=$((CHANGES + 1))
+              else
+                echo "⏭️  Skipping ${size}x${size} for $img (original is ${width}x${height})"
+              fi
+            done
+          done
+          
+          echo "CHANGES=$CHANGES" >> $GITHUB_ENV
+      
+      - name: Commit resized images
+        if: env.CHANGES > 0
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add apps/
+          git commit -m "🖼️ Auto-resize app images [skip ci]"
+          git push
